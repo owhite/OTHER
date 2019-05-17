@@ -139,12 +139,11 @@ Both chips come with evaluation boards that can simplify mounted the chips to yo
 
 If you are having calibration problems - make sure your magnet is centered on the axis of rotation on the motor, some users report this has a significant impact on calibration. Also make sure your magnet height is within range of the spec sheet. 
 
-Using ABI. 
+#### Using ABI. 
 You can use ABI with the AS5047/AS5048 with the default ODrive firmware. For your wiring, connect A, B, 3.2v, GND to the labeled pins on the odrive
 The acronym I and Z mean the same thing, connect those as well if you are using an index signal. 
 
-Using SPI.
-
+#### Using SPI.
 TobinHall has written a [branch](https://github.com/TobinHall/ODrive/tree/Non-Blocking_Absolute_SPI) that supports the SPI option on the AS5047/AS5048. Use his build to flash firmware on your ODrive and connect MISO, SCK, and CS to the labeled pins on the odrive
 
 Tie MOSI to 3.2v, connect to the SCK, CLK, MISO, GND and 3.2v pins on the ODrive. (note for SPI users, the acronym SCK and CLK mean the same thing, the acronym CSn and CS mean the same thing.)
