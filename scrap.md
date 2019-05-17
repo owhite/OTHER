@@ -48,43 +48,43 @@ That's it, now on every reboot the motor will turn in one direction until it fin
 
 The following are variables that MUST be set up for your encoder configuration. Your values will vary depending on your encoder:
 
-* odrv0.axis0.encoder.config.cpr = 4000
-* odrv0.axis0.encoder.config.mode = ENCODER_MODE_INCREMENTAL
+* `odrv0.axis0.encoder.config.cpr = 4000`
+* `odrv0.axis0.encoder.config.mode = ENCODER_MODE_INCREMENTAL`
 
 The following are examples of values that MAY impact the success of calibration. Your values will vary depending on your setup:
-* odrv0.axis0.motor.config.motor_type = MOTOR_TYPE_HIGH_CURRENT
-* odrv0.axis0.encoder.config.cpr = 4000
-* odrv0.axis0.encoder.config.calib_range = 0.05
-* odrv0.axis0.motor.config.calibration_current = 10.0
-* odrv0.axis0.motor.config.resistance_calib_max_voltage = 12.0
-* odrv0.axis0.controller.config.vel_limit = 50000
+* `odrv0.axis0.motor.config.motor_type = MOTOR_TYPE_HIGH_CURRENT`
+* `odrv0.axis0.encoder.config.cpr = 4000`
+* `odrv0.axis0.encoder.config.calib_range = 0.05`
+* `odrv0.axis0.motor.config.calibration_current = 10.0`
+* `odrv0.axis0.motor.config.resistance_calib_max_voltage = 12.0`
+* `odrv0.axis0.controller.config.vel_limit = 50000`
 
 Lots of other values can get you. It's a process. Thankfully there is a lot of good people that will help you debug calibration problems. 
 
 If calibration works, congratulations.
 
 Now try: 
-* odrv0.axis0.requested_state = AXIS_STATE_CLOSED_LOOP_CONTROL
-* odrv0.axis0.controller.set_vel_setpoint(3000,0) 
+* `odrv0.axis0.requested_state = AXIS_STATE_CLOSED_LOOP_CONTROL`
+* `odrv0.axis0.controller.set_vel_setpoint(3000,0) `
 let it loop a few times and then set:
-* odrv0.axis0.requested_state = AXIS_STATE_IDLE
+* `odrv0.axis0.requested_state = AXIS_STATE_IDLE`
 
 Do you still have no errors? Awesome. Now set these variables:
-* odrv0.axis0.encoder.config.pre_calibrated = True
-* odrv0.axis0.motor.config.pre_calibrated  = True 
+* `odrv0.axis0.encoder.config.pre_calibrated = True`
+* `odrv0.axis0.motor.config.pre_calibrated  = True `
 
 And see if ODrive agrees that calibration worked by just running
-* odrv0.axis0.encoder.config.pre_calibrated
+* `odrv0.axis0.encoder.config.pre_calibrated`
 
 (using no "= True" ). Make sure that variable is in fact True. 
 
 Also, if you have calibrated and encoder.pre_calibrated is equal to true, and you had no errors so far. Run this: 
-* odrv0.axis0.encoder.config.use_index = True
-* odrv0.save_configuration()
-* odrv0.reboot()
+* `odrv0.axis0.encoder.config.use_index = True`
+* `odrv0.save_configuration()`
+* `odrv0.reboot()`
 
 and see if you can do after a bootup you can run: 
-* odrv0.axis0.requested_state = AXIS_STATE_ENCODER_INDEX_SEARCH
+* `odrv0.axis0.requested_state = AXIS_STATE_ENCODER_INDEX_SEARCH`
 
 and get no errors. 
 
@@ -93,13 +93,13 @@ and get no errors.
 There are several issues that may prevent you from completing encoder calibration. 
 
 ODrive may not complete the calibrate sequence when you go to:
-* odrv0.axis0.requested_state = AXIS_STATE_FULL_CALIBRATION_SEQUENCE
+* `odrv0.axis0.requested_state = AXIS_STATE_FULL_CALIBRATION_SEQUENCE`
 
 It completes the calibrate sequence after:
-* odrv0.axis0.requested_state = AXIS_STATE_FULL_CALIBRATION_SEQUENCE
+* `odrv0.axis0.requested_state = AXIS_STATE_FULL_CALIBRATION_SEQUENCE`
 
 but fails after you go to:
-* odrvN.axisN.requested_state = AXIS_STATE_CLOSED_LOOP_CONTROL
+* `odrvN.axisN.requested_state = AXIS_STATE_CLOSED_LOOP_CONTROL`
 
 Or maybe it vibrates in an entertaining way. See:
 https://www.youtube.com/watch?v=gaRUmwvSyAs
@@ -107,10 +107,10 @@ https://www.youtube.com/watch?v=gaRUmwvSyAs
 ## Encoder Signals
 
 If your encoder is properly connected, run the command:
-* odrv0.axis0.encoder.shadow_count 
+* `odrv0.axis0.encoder.shadow_count `
 
 and look at your value. Then turn your motor by hand and see if that value changes. Also, notice that the command:
-* odrv0.axis0.encoder.config.cpr = 4000
+* `odrv0.axis0.encoder.config.cpr = 4000`
 
 must reflect the number of counts odrive receives after one complete turn of the motor. So use shadow_count to test if that is working properly. 
 
@@ -148,4 +148,3 @@ Using SPI.
 TobinHall has written a [branch](https://github.com/TobinHall/ODrive/tree/Non-Blocking_Absolute_SPI) that supports the SPI option on the AS5047/AS5048. Use his build to flash firmware on your ODrive and connect MISO, SCK, and CS to the labeled pins on the odrive
 
 Tie MOSI to 3.2v, connect to the SCK, CLK, MISO, GND and 3.2v pins on the ODrive. (note for SPI users, the acronym SCK and CLK mean the same thing, the acronym CSn and CS mean the same thing.)
-
