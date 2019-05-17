@@ -120,12 +120,12 @@ Connect to the I pin, see if you get a pulse on a complete rotation. Sometimes t
 If you are using SPI, connect to CLK, and CS pins, look for a signal like this:
 [INSERT PIC]
 
-## Encoder Signals
-Noise is found in all circuits, life is just about figuring out if it is preventing your system from working. Lots of users have no problems with noise interferring with their odrive operation, others will tell you "_I've been using the same encoder as you with no problems_". Power to 'em, that may be true, but it doesn't mean it will work for you. If you are concerned about noise, there are several things that might cause noise in your system:
+## Encoder Noise
+Noise is found in all circuits, life is just about figuring out if it is preventing your system from working. Lots of users have no problems with noise interferring with their odrive operation, others will tell you "_I've been using the same encoder as you with no problems_". Power to 'em, that may be true, but it doesn't mean it will work for you. If you are concerned about noise, there are several possible sources:
 
-* encoder wires are too close to motor wires
-* long wires
-* ribbon cable
+* Encoder wires may be too close to motor wires
+* Long wires between encoder and ODrive
+* Use of ribbon cable
 
 The following _might_ mitigate noise problems. Use twisted pairs, where one side of each twisted pair is tied to ground, the other side is tied to your signal. If you are using SPI, use a 20-50 ohm resistor in series on CLK, which is more susceptable noise.
 
