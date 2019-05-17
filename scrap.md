@@ -76,7 +76,7 @@ Do you still have no errors? Awesome. Now set these variables:
 And see if ODrive agrees that calibration worked by just running
 * `odrv0.axis0.encoder.config.pre_calibrated`
 
-(using no "= True" ). Make sure that variable is in fact True. 
+(using no "= True" ). Make sure that 'pre_calibrated' is in fact True. 
 
 Also, if you have calibrated and encoder.pre_calibrated is equal to true, and you had no errors so far. Run this: 
 * `odrv0.axis0.encoder.config.use_index = True`
