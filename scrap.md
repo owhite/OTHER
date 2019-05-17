@@ -83,10 +83,10 @@ Also, if you have calibrated and encoder.pre_calibrated is equal to true, and yo
 * `odrv0.save_configuration()`
 * `odrv0.reboot()`
 
-and see if you can do after a bootup you can run: 
+and now see if after a reboot you can run: 
 * `odrv0.axis0.requested_state = AXIS_STATE_ENCODER_INDEX_SEARCH`
 
-and get no errors. 
+without getting errors. 
 
 ## Encoder Problems
 
