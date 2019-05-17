@@ -4,9 +4,9 @@
 Be sure to read the [ODrive Encoder Guide](https://docs.google.com/spreadsheets/d/1OBDwYrBb5zUPZLrhL98ezZbg94tUsZcdTuwiVNgVqpU).
 
 ## Encoder Calibration
-Please take into account that all encoder types supported by ODrive require that you do some sort of encoder calibration. This require the following:
+Please take into account that all encoder types supported by ODrive require that you do some sort of encoder calibration. This requires the following:
 * selecting an encoder and mounting it to your motor
-* choosing an interface (e.g., SPI and ABI)
+* choosing an interface (e.g., AB, ABI or SPI)
 * connecting the pins to the odrive
 * loading the correct odrive firmware (the default will work in many cases)
 * motor calibration
@@ -27,32 +27,31 @@ The following are examples of values that MAY impact the success of calibration.
 * odrv0.axis0.motor.config.resistance_calib_max_voltage = 12.0
 * odrv0.axis0.controller.config.vel_limit = 50000
 
-Lots of other values can get you. It's a process. Thankfully there is a lot of good people that will help you debug problems with calibration. 
+Lots of other values can get you. It's a process. Thankfully there is a lot of good people that will help you debug calibration problems. 
 
 If calibration works, congratulations.
 
 Now try: 
-odrv0.axis0.requested_state = AXIS_STATE_CLOSED_LOOP_CONTROL
-odrv0.axis0.controller.set_vel_setpoint(3000,0) 
+* odrv0.axis0.requested_state = AXIS_STATE_CLOSED_LOOP_CONTROL
+* odrv0.axis0.controller.set_vel_setpoint(3000,0) 
 let it loop a few times and then set:
-odrv0.axis0.requested_state = AXIS_STATE_IDLE
+* odrv0.axis0.requested_state = AXIS_STATE_IDLE
 
 Do you still have no errors? Awesome. Now set these variables:
-odrv0.axis0.encoder.config.pre_calibrated = True
-odrv0.axis0.motor.config.pre_calibrated  = True 
+* odrv0.axis0.encoder.config.pre_calibrated = True
+* odrv0.axis0.motor.config.pre_calibrated  = True 
 
 And see if ODrive agrees that calibration worked by just running
-odrv0.axis0.encoder.config.pre_calibrated
+* odrv0.axis0.encoder.config.pre_calibrated
 (using no "= True" ). Make sure that variable is in fact True. 
 
 Also, if you have calibrated and encoder.pre_calibrated is true, add you had no errors so far. Run this: 
-
-odrv0.axis0.encoder.config.use_index = True
-odrv0.save_configuration()
-odrv0.reboot()
+* odrv0.axis0.encoder.config.use_index = True
+* odrv0.save_configuration()
+* odrv0.reboot()
 
 and see if you can do after a bootup you can run: 
-odrv0.axis0.requested_state = AXIS_STATE_ENCODER_INDEX_SEARCH
+* odrv0.axis0.requested_state = AXIS_STATE_ENCODER_INDEX_SEARCH
 
 and get no errors. 
 
