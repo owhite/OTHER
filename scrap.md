@@ -146,4 +146,10 @@ The acronym I and Z mean the same thing, connect those as well if you are using 
 #### Using SPI.
 TobinHall has written a [branch](https://github.com/TobinHall/ODrive/tree/Non-Blocking_Absolute_SPI) that supports the SPI option on the AS5047/AS5048. Use his build to flash firmware on your ODrive and connect MISO, SCK, and CS to the labeled pins on the odrive
 
+Add these commands to your calibration / startup script:
+* `<axis>.encoder.config.abs_spi_cs_gpio_pin = 4` or which ever GPIO pin you choose
+* `<axis>.encoder.config.mode = 257`
+* `<odrv>.axis0.encoder.config.cpr = 2**14`
+
+
 Tie MOSI to 3.2v, connect to the SCK, CLK, MISO, GND and 3.2v pins on the ODrive. (note for SPI users, the acronym SCK and CLK mean the same thing, the acronym CSn and CS mean the same thing.)
