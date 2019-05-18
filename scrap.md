@@ -28,7 +28,7 @@ First, you will  need to be able to wire some devices to the ODrive digital inpu
 
 ![Endpoint figure](/endpoint_figure.png)
 
-Once your endpoint detectors are connected to the gpio pins are ready to test, power up your ODrive (motor and encoder calibration should be complete). Test the device connections to the ODrive board by activating the device, and then in odrive tool type:
+Once your endpoint detectors are connected to the gpio pins, power up your ODrive (motor and encoder calibration should be complete). Test the device connections to the ODrive board by activating the device, and then in odrive tool type:
 
 * `something something something`
 
