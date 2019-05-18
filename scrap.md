@@ -20,6 +20,8 @@ Before you plunge into using this endpoint firmware, you will have to perform th
 * Perform encoder offset calibration
 * Save the configuration and reboot
 
+![Endpoint figure](/endpoing_figure.png)
+
 Describing how to complete above steps is outside of the scope of this documentation. Refer to [this site]() for more information, and don't hesitate to visit the [odrive forum]() or [odrive discord chat site](). There is a lot of good information at those resources. 
 
 Next, you also need to be able to wire some devices to the ODrive digital inputs. Let's look at a couple examples
