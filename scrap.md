@@ -24,17 +24,15 @@ Describing how to complete above steps is outside of the scope of this documenta
 
 ### Configuring the ODrive to perform homing. 
 
-First, you will  need to be able to wire some devices to the ODrive digital inputs. To get you started this is a diagram of switches and devices that could work to detect your endpoints. 
+First, you will  need to be able to wire some devices to the ODrive digital inputs. There are a lot of options for wiring up your endpoint detectors - you will have to work out the details of connecting your device. To get you started this is a diagram of switches and devices that could work to detect your endpoints. 
 
 ![Endpoint figure](/endpoint_figure.png)
 
-You will have to work out the details of connecting your device. There are a lot of options. Once you have loaded the ODrive-Endpoint firmware and attached some endpoint switches to the gpio pins, power up your ODrive. Perform your motor and encoder calibration, save your settings, and reboot.
-
-Test the device connections to the ODrive board by activating the device, and then in odrive tool type:
+Once your endpoint detectors are connected to the gpio pins are ready to test, power up your ODrive (motor and encoder calibration should be complete). Test the device connections to the ODrive board by activating the device, and then in odrive tool type:
 
 * `something something something`
 
-to look at the status of your endpoint gpio pin. 
+and look at the status of your endpoint gpio pin. 
 
 If you are ready to start testing homing procedures, these variables will then need to be set:
 * `<odrv>.<axis>.config.max_endstop.gpio_num = <1, 2, 3, 4, 5, 6, 7, 8>` pick one
@@ -59,3 +57,43 @@ For a more final configuration, the following are variables might eventually be 
 After setting up your configuration, always make sure things are getting stored by running:
 * `<odrv>.save_configuration()`
 and then reboot. 
+
+
+### Performing a homing sequence. 
+
+(These are mostly notes, not final)
+
+Once everything is ready you should do these things:
+
+to manually enter homing
+* `<axis>.requested_state = AXIS_STATE_HOMING`
+
+* `<axis>.config.startup_closed_loop_control`
+* `<axis>.config.startup_homing = <True, False> `
+
+NOTE: Make sure to disable step/dir or UART communications as necessary.
+
+Endstops set 4 gpios and integrated a homing sequence into the control loop
+
+odrv0.axis0.max_endstop 
+odrv0.axis0.min_endstop 
+
+### Notes on how the code works. 
+
+For background, in the main branch of ODrive, when the user is using the main branch and calls AXIS_STATE_ENCODER_INDEX_SEARCH, these steps occur:
+
+* the motor has to be calibrated
+* the firmware changes state
+* Encoder::run_index_search() --> Axis::run_lockin_spin()
+* does an open-loop (no current control) slow rotation in one direction.
+* When the index pin (Z) goes low, it triggers the enc_index_cb() function via an interrupt
+* when that happens it sets the current position as 0 counts
+
+In ODrive-Endstops
+
+More blather. 
+
+Axis::do_updates() calls Endstop::update() which tests the status of endstop pins
+ this handles setting endstop_state_ = true / false
+ Axis::run_closed_loop_control_loop() {
+
