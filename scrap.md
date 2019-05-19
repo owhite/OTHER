@@ -8,7 +8,7 @@ In this scenario the motor will spin until the Z pin changes state. That's fine 
 
 For example, many robotics and CNC activities require a procedure known as _homing_. In these situations it is useful to allow your motor to move until a physical or electronic device orders the system to stop. That _endstop_ can be used as a reference point, and once the ODrive has hit that position it may then want to move to a final home position.
 
-This version of ODrive firmware enables users to use the ODrive gpio pins to connect to phyiscal limit switches, or other sensors that will serve as endpoint detectors. 
+This version of ODrive firmware enables users to use the ODrive gpio pins to connect to phyiscal limit switches, or other sensors, that can serve as endpoint detectors. 
 
 ### Getting started
 
@@ -28,23 +28,24 @@ First, you will  need to be able to wire some devices to the ODrive digital inpu
 
 ![Endpoint figure](/endpoint_figure.png)
 
-Once your endpoint detectors are connected to the gpio pins, power up your ODrive (motor and encoder calibration should be complete). Test the device connections to the ODrive board by activating the device, and then in odrive tool type:
+Once your endpoint detectors are connected to the gpio pins, power up your ODrive (motor and encoder calibration should be complete). 
 
-* `something something something`
+You will then need to set these variables will then need to be set:
 
-and look at the status of your endpoint gpio pin. 
+* `<odrv>.<axis>.max_endstop.config.gpio_num = <1, 2, 3, 4, 5, 6, 7, 8>` pick one
+* `<odrv>.<axis>.min_endstop.config.gpio_num = <1, 2, 3, 4, 5, 6, 7, 8>` pick one
+* `<odrv>.<axis>.max_endstop.config.enabled = <True, False>` probably want True
 
-If you are ready to start testing homing procedures, these variables will then need to be set:
-* `<odrv>.<axis>.config.max_endstop.gpio_num = <1, 2, 3, 4, 5, 6, 7, 8>` pick one
-* `<odrv>.<axis>.config.min_endstop.gpio_num = <1, 2, 3, 4, 5, 6, 7, 8>` pick one
-* `<odrv>.<axis>.config.max_endstop.enabled = <True, False>` probably want True
-
-`gpio_num` refers to the pin used to detect a change in your switch
 `enabled` should be self explanatory
+`gpio_num` refers to the pin used to detect a change in your switch. When you are selecting GPIO pins make sure they do not conflict with the default pins for step, dir or UART 
 
-For a more final configuration, the following are variables might eventually be set:
-* `<odrv>.<axis>.config.max_endstop.offset = <int>` 
-* `<odrv>.<axis>.config.max_endstop.is_active_high = <True, False>` 
+Now you can test your endstop devices. Once you are at this point you should be able to use your devices to change the states of these variables:
+* `odrv0.axis0.max_endstop.endstop_state`
+* `odrv0.axis0.min_endstop.endstop_state`
+
+Give it a try. Then for for a more final configuration, you can consider changing the following variables:
+* `<odrv>.<axis>.max_endstop.config.offset = <int>` 
+* `<odrv>.<axis>.max_endstop.config.is_active_high = <True, False>` 
 * `<odrv>.<axis>.min_endstop.config.debounce_ms = <Float>` 
 * `<odrv>.<axis>.max_endstop.config.debounce_ms = <Float>` 
 
@@ -58,7 +59,6 @@ After setting up your configuration, always make sure things are getting stored 
 * `<odrv>.save_configuration()`
 and then reboot. 
 
-
 ### Performing a homing sequence. 
 
 (These are mostly notes, not final)
@@ -67,7 +67,6 @@ Once everything is ready you should do these things:
 
 to manually enter homing
 * `<axis>.requested_state = AXIS_STATE_HOMING`
-
 * `<axis>.config.startup_closed_loop_control`
 * `<axis>.config.startup_homing = <True, False> `
 
@@ -80,14 +79,13 @@ odrv0.axis0.min_endstop
 
 ### Notes on how the code works. 
 
-For background, in the main branch of ODrive, when the user is using the main branch and calls AXIS_STATE_ENCODER_INDEX_SEARCH, these steps occur:
+For background, in the main branch of ODrive, when the ODrive is calibrated and the user calls AXIS_STATE_ENCODER_INDEX_SEARCH, these steps occur:
 
-* the motor has to be calibrated
-* the firmware changes state
+* The firmware changes state
 * Encoder::run_index_search() --> Axis::run_lockin_spin()
-* does an open-loop (no current control) slow rotation in one direction.
-* When the index pin (Z) goes low, it triggers the enc_index_cb() function via an interrupt
-* when that happens it sets the current position as 0 counts
+* It runs a slow rotation in one direction.
+* The function enc_index_cb() triggers an interupt when the index pin (Z) goes low
+* The sets the current position at 0. 
 
 In ODrive-Endstops
 
