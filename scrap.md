@@ -28,9 +28,7 @@ First, you will  need to be able to wire some devices to the ODrive digital inpu
 
 ![Endpoint figure](/endpoint_figure.png)
 
-Once your endpoint detectors are connected to the gpio pins, power up your ODrive (motor and encoder calibration should be complete). 
-
-You will then need to set these variables will then need to be set:
+Once motor and encoder calibration should be complete, and your endpoint detectors are connected to the gpio pins, power up your ODrive. You will then need to set these variables:
 
 * `<odrv>.<axis>.max_endstop.config.gpio_num = <1, 2, 3, 4, 5, 6, 7, 8>` pick one
 * `<odrv>.<axis>.min_endstop.config.gpio_num = <1, 2, 3, 4, 5, 6, 7, 8>` pick one
