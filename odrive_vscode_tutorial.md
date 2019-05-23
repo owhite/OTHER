@@ -37,7 +37,7 @@ then check if you have created a new .elf file in the build directory. The file 
 see [this doc](https://docs.odriverobotics.com/developer-guide#building-and-flashing-the-firmware) for a little bit more information. 
 
 ### Flashing a build by running VScode
-It is also possible to flash firmware uing VScode. VScode installs on mac, linux and windows. Starting it is a little different for each environment. Once you can get it to run, here is a video to create a workspace:
+It is also possible to flash firmware uing VScode. VScode installs on mac, linux and windows. Starting it is a little different for each environment. Once you can get it to run, here is a video to pull a build from github, compile it, flash the firmware, and to save a workspace:
 
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/czsCG6QWvY4/0.jpg)](https://www.youtube.com/watch?v=czsCG6QWvY4)
 
