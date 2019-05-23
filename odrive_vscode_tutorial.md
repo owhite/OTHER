@@ -17,10 +17,10 @@ git clone https://github.com/madcowswe/ODrive.git
 * build the .elf file, described [here](https://docs.odriverobotics.com/developer-guide#building-and-flashing-the-firmware)
 * flash the ODrive using [stlink](https://docs.odriverobotics.com/odrivetool#flashing-with-an-stlink)
 
-If you were able to do all these things, and it was your first time, congratulations on behalf of the ODrive community, you have earned your your entry level developer merit badge. 
+If you were able to do all these things, and it was your first time, congratulations on behalf of the ODrive community, you have earned your entry level developer merit badge. 
 
 ### Compiling a build for the ODrive *.elf file for debugging
-To do this, start in the /ODrive/Firmware directory
+This section is just for reference. The issue with VScode is you probably can not flash firmware using VScode unless you can also do it on the command line. Let's check that out, start in the /ODrive/Firmware directory
 Use the tup.config.default file to create another file named "tup.config".
 Make two changes:
 1) uncomment the line
