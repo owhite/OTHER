@@ -64,7 +64,7 @@ Install VScode on macOS, windows, or linux. Starting it is a little different fo
 * select "Flash"
 * boom, VScode flashes the .elf file on to the board
 
-### what is openocd anyway?
+### Debugging using openocd
 The project openocd is yet another amazing open source effort that enables users to move compiled code on to microprocessors. It works for an incredible number of chips, including the STM32405. It handles that in part by packing a ot of the configuration for flashing the STM32 chip is located in the stlink-v2.cfg and stm32f4f.cfg files. 
 
 But the other thing that openocd can do to do on-chip debugging. This means you can:
@@ -75,5 +75,31 @@ But the other thing that openocd can do to do on-chip debugging. This means you 
 * To look for bugs or find out what is happening when youre configuring the odrive
 
 And by the way, it is absolutely astonishing that any of this is possible. It is an amazing world. 
+
+
+
+
+GDB can do four main kinds of things (plus other things in support of these) to help you catch bugs in the act:
+
+
+
+set logging on
+set logging off
+set logging overwrite [on|off] 'cause default is to append
+set logging file FILENAME
+
+
+$ ps aux | grep openocd
+
+If things seem to hang be sure to watch your processes and make sure openocd is not running:
+
+http://ardupilot.org/dev/docs/debugging-with-gdb-on-stm32.html
+
+info functions .*Axis
+break /Users/owhite/ODrive/Firmware/MotorControl/main.cpp:33
+break main
+
+openocd -c gdb_port 50000 -s /Users/owhite/ODrive/Firmware -f interface/stlink-v2.cfg -f target/stm32f4x_stlink.cfg
+
 
 $ ps aux | grep openocd
