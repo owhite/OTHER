@@ -45,6 +45,7 @@ see [this doc](https://docs.odriverobotics.com/developer-guide#building-and-flas
 It is also possible to flash firmware uing VScode. But remember: _that is only possible if you can do the same steps manually as shown in the previous section_. 
 
 Install VScode on macOS, windows, or linux. Starting it is a little different for each environment. Once you can get it to run, here is a video to create a workspace:
+
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/czsCG6QWvY4/0.jpg)](https://www.youtube.com/watch?v=czsCG6QWvY4)
 
 This is a of summary what is in the video:
