@@ -64,21 +64,13 @@ This is a of summary what is in the video:
 ### Debugging using openocd
 The openocd project is yet another amazing [open source effort](http://openocd.org/) that enables users to move compiled code on to microprocessors. It works for an incredible number of chips, including the STM32405. It handles that in part by packing a ot of the configuration for flashing the STM32 chip is located in the stlink-v2.cfg and stm32f4f.cfg files. 
 
-But the other thing that openocd can do to do on-chip debugging. This means you can:
+But the other thing that openocd can do to do on-chip debugging. This means you can look for bugs or find out what is happening when configuring odrive. You can:
 * Start your program, and at the same time connect odrivetool
-* Specify just anything that might impact the behavior of odrive
+* Examine variables when you run commands in odrivetool
+* Specify just about anything that might impact the behavior of odrive
 * Stop and start the program based specified conditions
-* Examine what has happened
-* To look for bugs or find out what is happening when youre configuring the odrive
 
-And by the way, it is absolutely astonishing that any of this is possible. It is an amazing world. 
-
-
-
-
-GDB can do four main kinds of things (plus other things in support of these) to help you catch bugs in the act:
-
-
+And by the way, it is absolutely astonishing that any of this is possible. Debuggers are incredible and this, is an amazing world to live in. 
 
 set logging on  
 set logging off  
