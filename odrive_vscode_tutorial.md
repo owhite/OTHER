@@ -1,12 +1,13 @@
-## A VScode Tutorial for Debugging the ODrive
+## A VScode Tutorial for the ODrive
 
-This guide will help you with debugging ODrive by looking at the code that runs on the processor. It assumes you can build the ODrive code, and flash that code on to the ODrive board. 
+This guide will help you with using VScode with the ODrive board. 
 
 #### Background.
-The ODrive board uses a processor called the STM32F405, which is a member of the ARM Cortex-M4 family. The developers of ODrive have written source code for the STM32, and all of that code can be found here. This documentation is meant to guide you through the process of using GDB, the GNU source-level debugger, in combination with some other tools to connect to the board, and watch what is happening inside of the STM32 in real time.
+The ODrive board uses a processor called the STM32F405, which is a member of the ARM Cortex-M4 family. The developers of ODrive have written source code for the STM32, and all of that code can be found here. This documentation is meant to guide you through the process of using VScode in combination with some other tools to connect to the board, to load firmware.
+
+Another section will show you how to use VScode to watch what is happening inside of the STM32 in real time for debugging. 
 
 ### Some prerequisites
-
 In order to do this one issue is that you need to set up an coding environment where it is possible to build the ODrive code, and unfortunately, this documentation is not going to cover all the steps required to do this. Here are the prerequisite steps - along with some sources of information - that you will have to perform in order to set up a debugging environment:
 
 * install the odrive development environment described here: [link](https://docs.odriverobotics.com/developer-guide).
