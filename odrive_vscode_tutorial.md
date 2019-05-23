@@ -83,10 +83,10 @@ GDB can do four main kinds of things (plus other things in support of these) to 
 
 
 
-set logging on
-set logging off
-set logging overwrite [on|off] 'cause default is to append
-set logging file FILENAME
+set logging on  
+set logging off  
+set logging overwrite [on|off] 'cause default is to append  
+set logging file FILENAME''
 
 
 $ ps aux | grep openocd
