@@ -21,10 +21,7 @@ git clone https://github.com/madcowswe/ODrive.git
 If you were able to do all these things, and it was your first time, congratulations on behalf of the ODrive community, you have earned your your entry level developer merit badge. 
 
 ### Compiling a build for the ODrive *.elf file for debugging
-
-To do this:
-
-Start in the /ODrive/Firmware directory
+To do this, start in the /ODrive/Firmware directory
 Use the tup.config.default file to create another file named "tup.config".
 Make two changes:
 1) uncomment the line
@@ -44,21 +41,10 @@ openocd -f interface/stlink-v2.cfg -f target/stm32f4x.cfg -c init -c "reset halt
 
 see [this doc](https://docs.odriverobotics.com/developer-guide#building-and-flashing-the-firmware) for a little bit more information. 
 
-### what is openocd anyway?
-The project openocd is yet another amazing open source effort that enables users to move compiled code on to microprocessors. It works for an incredible number of chips, including the STM32405. It handles that in part by packing a ot of the configuration for flashing the STM32 chip is located in the stlink-v2.cfg and stm32f4f.cfg files. 
+### Flashing a build by running VScode
+It is also possible to flash firmware uing VScode. But remember: _that is only possible if you can do the same steps manually as shown in the previous section_. 
 
-But the other thing that openocd can do to do on-chip debugging. This means you can:
-* Start your program, and at the same time connect odrivetool
-* Specify just anything that might impact the behavior of odrive
-* Stop and start the program based specified conditions
-* Examine what has happened
-* To look for bugs or find out what is happening when youre configuring the odrive
-
-And by the way, it is absolutely astonishing that any of this is possible. It is an amazing world. 
-
-### Running VScode
-
-You can install VScode on macOS, windows, and linux. Starting it is a little different for each environment. Once you can get it to run, here is a video to create a workspace [link](). A summary what is in the video:
+Install VScode on macOS, windows, or linux. Starting it is a little different for each environment. Once you can get it to run, here is a video to create a workspace [link](). This is a of summary what is in the video:
 
 * start VScode
 * go to Terminal-->New terminal
@@ -77,5 +63,17 @@ You can install VScode on macOS, windows, and linux. Starting it is a little dif
 * go to Terminal-->Run task...
 * select "Flash"
 * boom, VScode flashes the .elf file on to the board
+
+### what is openocd anyway?
+The project openocd is yet another amazing open source effort that enables users to move compiled code on to microprocessors. It works for an incredible number of chips, including the STM32405. It handles that in part by packing a ot of the configuration for flashing the STM32 chip is located in the stlink-v2.cfg and stm32f4f.cfg files. 
+
+But the other thing that openocd can do to do on-chip debugging. This means you can:
+* Start your program, and at the same time connect odrivetool
+* Specify just anything that might impact the behavior of odrive
+* Stop and start the program based specified conditions
+* Examine what has happened
+* To look for bugs or find out what is happening when youre configuring the odrive
+
+And by the way, it is absolutely astonishing that any of this is possible. It is an amazing world. 
 
 $ ps aux | grep openocd
