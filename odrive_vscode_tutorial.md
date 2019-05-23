@@ -12,7 +12,7 @@ In order to do this one issue is that you need to set up an coding environment w
 * install the odrive development environment described here: [link](https://docs.odriverobotics.com/developer-guide).
 * clone a copy of the ODrive code using the command:
 ```
-https://github.com/madcowswe/ODrive.git
+git clone https://github.com/madcowswe/ODrive.git
 ```
 * follow the instructions [here](https://docs.odriverobotics.com/configuring-vscode.html) to install VScode
 * build the .elf file, described [here](https://docs.odriverobotics.com/developer-guide#building-and-flashing-the-firmware)
@@ -35,10 +35,8 @@ to work for your board version
 to:
   CONFIG_DEBUG=true
 now run:
-$ make clean
-$ make
 
-the check if you have created a new .elf file in the build directory. The file is probably called: build/ODriveFirmware.elf
+then check if you have created a new .elf file in the build directory. The file is probably called: build/ODriveFirmware.elf
 
 Also convince yourself that openocd is talking to the stlink device and to your board. Try connecting an stlink to the ODrive board and running:
 
@@ -47,7 +45,6 @@ openocd -f interface/stlink-v2.cfg -f target/stm32f4x.cfg -c init -c "reset halt
 see [this doc](https://docs.odriverobotics.com/developer-guide#building-and-flashing-the-firmware) for a little bit more information. 
 
 ### what is openocd anyway?
-
 The project openocd is yet another amazing open source effort that enables users to move compiled code on to microprocessors. It works for an incredible number of chips, including the STM32405. It handles that in part by packing a ot of the configuration for flashing the STM32 chip is located in the stlink-v2.cfg and stm32f4f.cfg files. 
 
 But the other thing that openocd can do to do on-chip debugging. This means you can:
@@ -57,7 +54,7 @@ But the other thing that openocd can do to do on-chip debugging. This means you 
 * Examine what has happened
 * To look for bugs or find out what is happening when youre configuring the odrive
 
-And the way, it is absolutely astonishing that any of this is possible. It is an amazing world. 
+And by the way, it is absolutely astonishing that any of this is possible. It is an amazing world. 
 
 ### Running VScode
 
@@ -66,7 +63,7 @@ You can install VScode on macOS, windows, and linux. Starting it is a little dif
 * start VScode
 * go to Terminal-->New terminal
 * get an ODrive buid
-** $ git clone https://github.com/madcowswe/ODrive.git
+```$ git clone https://github.com/madcowswe/ODrive.git```
 * go to File-->Add folder to workspace...
 * select ODrive/Firmware, hit the "ADD" button. 
 * go to File->Save workspace as... and save as a project
