@@ -62,7 +62,7 @@ This is a of summary what is in the video:
 * boom, VScode flashes the .elf file on to the board
 
 ### Debugging using openocd
-The project openocd is yet another amazing [open source effort](http://openocd.org/) that enables users to move compiled code on to microprocessors. It works for an incredible number of chips, including the STM32405. It handles that in part by packing a ot of the configuration for flashing the STM32 chip is located in the stlink-v2.cfg and stm32f4f.cfg files. 
+The openocd project is yet another amazing [open source effort](http://openocd.org/) that enables users to move compiled code on to microprocessors. It works for an incredible number of chips, including the STM32405. It handles that in part by packing a ot of the configuration for flashing the STM32 chip is located in the stlink-v2.cfg and stm32f4f.cfg files. 
 
 But the other thing that openocd can do to do on-chip debugging. This means you can:
 * Start your program, and at the same time connect odrivetool
