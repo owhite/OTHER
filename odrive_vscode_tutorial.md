@@ -32,12 +32,8 @@ to:
   CONFIG_DEBUG=true
 now run:
 
-then check if you have created a new .elf file in the build directory. The file is probably called: build/ODriveFirmware.elf
-
-Also convince yourself that openocd is talking to the stlink device and to your board. Try connecting an stlink to the ODrive board and running:
-
-openocd -f interface/stlink-v2.cfg -f target/stm32f4x.cfg -c init -c "reset halt" -c "flash write_image erase build/ODriveFirmware.elf" -c "reset run" -c exit
-
+then check if you have created a new .elf file in the build directory. The file is probably called: build/ODriveFirmware.elf . Also convince yourself that openocd is talking to the stlink device and to your board. Try connecting an stlink to the ODrive board and running:
+```openocd -f interface/stlink-v2.cfg -f target/stm32f4x.cfg -c init -c "reset halt" -c "flash write_image erase build/ODriveFirmware.elf" -c "reset run" -c exit```
 see [this doc](https://docs.odriverobotics.com/developer-guide#building-and-flashing-the-firmware) for a little bit more information. 
 
 ### Flashing a build by running VScode
