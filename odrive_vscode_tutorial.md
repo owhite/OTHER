@@ -46,7 +46,7 @@ It is also possible to flash firmware uing VScode. But remember: _that is only p
 
 Install VScode on macOS, windows, or linux. Starting it is a little different for each environment. Once you can get it to run, here is a video to create a workspace [VScode Tutorial](https://youtu.be/OsEvlv8OIzw). 
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/czsCG6QWvY4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/czsCG6QWvY4/0.jpg)](https://www.youtube.com/watch?v=czsCG6QWvY4)
 
 
 This is a of summary what is in the video:
