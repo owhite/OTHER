@@ -72,6 +72,8 @@ But the other thing that openocd can do to do on-chip debugging. This means you 
 
 And by the way, it is absolutely astonishing that any of this is possible. Debuggers are incredible and this, is an amazing world to live in. 
 
+### NOTES FOR LATER - IGNORE
+
 set logging on  
 set logging off  
 set logging overwrite [on|off] 'cause default is to append  
