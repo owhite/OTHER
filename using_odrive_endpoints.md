@@ -41,55 +41,58 @@ Now you can test your endstop devices. Once you are at this point you should be 
 * `odrv0.axis0.max_endstop.endstop_state`
 * `odrv0.axis0.min_endstop.endstop_state`
 
-Give it a try. Then for for a more final configuration, you can consider changing the following variables:
-* `<odrv>.<axis>.max_endstop.config.offset = <int>` 
+Give it a try. Click your switches, or put a magnet on your hall switch and see if the states change. If that works for a more final configuration, you can consider changing the following variables:
 * `<odrv>.<axis>.max_endstop.config.is_active_high = <True, False>` 
-* `<odrv>.<axis>.min_endstop.config.debounce_ms = <Float>` 
 * `<odrv>.<axis>.max_endstop.config.debounce_ms = <Float>` 
-
-`offset` works aas a home switch position. It applies to min_endstop and represents the number of counts required to get home. Suppose home is 100 counts away from min_endstop, set this value to -100. 
+* `<odrv>.<axis>.min_endstop.config.is_active_high = <True, False>` 
+* `<odrv>.<axis>.min_endstop.config.debounce_ms = <Float>` 
+* `<odrv>.<axis>.min_endstop.config.offset = <int>` 
+* `<axis>.controller.config.vel_limit = 50000`
+* `<axis>.encoder.config.use_index = True` 
 
 `is_active_high` sets the polarity of the endstop. When the switch is pressed it pulls the pin LOW (this is very common for endstop switches), you want to set this to “False”.
 
 `debounce_ms` is a good practice for digital inputs, read up on it [here](https://en.wikipedia.org/wiki/Switch). 'debounce_ms' units are in miliseconds. 
 
+`offset` works aas a home switch position. It applies to min_endstop and represents the number of counts required to get home. Suppose home is 100 counts away from min_endstop, set this value to -100. The speed it will move to the offset is set by `vel_limit`. *WETMELON PLEASE CONFIRM if the statement about vel_limit is true!!!*
+
+`use_index` will be needed for encoders that still require an index search. (e.g., ABI does, SPI does not). 
+
+* `odrv0.save_configuration()` because everything is working, always save
+* `odrv0.reboot()`and then bounce the odrive
+
 After setting up your configuration, always make sure things are getting stored by running:
 * `<odrv>.save_configuration()`
 and then reboot. 
 
+### Calibration is still required
+
+For homing, your motor/odrive configuration still needs to be calibrated. Remove all load on your motor, it has to be able to spin freely. Come out of reboot and run:
+
+`<axis>.requested_state = AXIS_STATE_FULL_CALIBRATION_SEQUENCE`
+
+the motor should beep and complete it's calibration. The calibration sequence should slowly rotate in one direction, and slowly return back. Store the fact that you've succeeded with:
+`<axis>.motor.config.pre_calibrated  = True 
+`<axis>.encoder.config.pre_calibrated = True
+Then save_configuration and reboot.
+
 ### Performing a homing sequence. 
 
-(These are mostly notes, not final)
+Once everything is ready, this is an example sequence of commands you can use for manually performing homing. You probably need to do something more elaborate for when you build the next consciously self-aware android, but try manual homingfirst with: 
 
-Once everything is ready you should do these things:
-
-to manually enter homing
+* `<axis>.requested_state = AXIS_STATE_ENCODER_INDEX_SEARCH`
+* `<axis>.requested_state = AXIS_STATE_CLOSED_LOOP_CONTROL`
 * `<axis>.requested_state = AXIS_STATE_HOMING`
-* `<axis>.config.startup_closed_loop_control`
-* `<axis>.config.startup_homing = <True, False> `
 
-NOTE: Make sure to disable step/dir or UART communications as necessary.
+`INDEX_SEARCH` is required for some encoders
+`CLOSED_LOOP_CONTROL` arms the motor
+`AXIS_STATE_HOMING` initiates the homing. 
 
-Endstops set 4 gpios and integrated a homing sequence into the control loop
-
-odrv0.axis0.max_endstop 
-odrv0.axis0.min_endstop 
+*NOTE:* sometimes odrivetool will not have heard of `AXIS_STATE_HOMING` and in that case you can run:
+* `<axis>.requested_state = 11`
 
 ### Notes on how the code works. 
 
-For background, in the main branch of ODrive, when the ODrive is calibrated and the user calls AXIS_STATE_ENCODER_INDEX_SEARCH, these steps occur:
-
-* The firmware changes state
-* Encoder::run_index_search() --> Axis::run_lockin_spin()
-* It runs a slow rotation in one direction.
-* The function enc_index_cb() triggers an interupt when the index pin (Z) goes low
-* The sets the current position at 0. 
-
-In ODrive-Endstops
-
-More blather. 
-
-Axis::do_updates() calls Endstop::update() which tests the status of endstop pins
- this handles setting endstop_state_ = true / false
- Axis::run_closed_loop_control_loop() {
+#### _ WETMELON PLEASE CONFIRM !!! : 
+For background, this branch initiates the homing process in the function `axis::run_state_machine_loop()`. When the user calls `AXIS_STATE_HOMING` the program is sent to `controller::home_axis()`. That function sets up the speed of travel, and sets the axis state to `HOMING_STATE_HOMING`. `Axis::run_closed_loop_control_loop` handles operations when the motor is armed. This function tests that `HOMING_STATE_HOMING` state is set, if it is, it runs the motor until it reaches `set_pos_setpoint`. After that occurs, the state `HOMING_STATE_MOVE_TO_ZERO` is then set, and the motor to travels to `config.offset`. How simple was that? 
 
